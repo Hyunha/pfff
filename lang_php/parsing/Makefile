@@ -85,6 +85,7 @@ install-findlib:
           ast_php.ml ast_php.cmi ast_php.cmo ast_php.cmx \
           meta_ast_php.ml meta_ast_php.cmi meta_ast_php.cmo meta_ast_php.cmx \
           unparse_php.ml unparse_php.cmi unparse_php.cmo unparse_php.cmx \
+          parse_php.ml parse_php.cmi parse_php.cmo parse_php.cmx \
           flag_parsing_php.ml flag_parsing_php.cmi flag_parsing_php.cmo flag_parsing_php.cmx \
 
 ##############################################################################
