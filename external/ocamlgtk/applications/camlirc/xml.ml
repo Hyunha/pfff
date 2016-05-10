@@ -54,7 +54,7 @@ let parse ?doctype ?(dtd=any) lexbuf =
   begin match doctype with None -> ()
   | Some doctype -> match token lexbuf with
     | Tag ("!doctype", attrs, _) ->
-        if not (List.mem_assoc (String.lowercase doctype) attrs) then
+        if not (List.mem_assoc (String.lowercase_ascii doctype) attrs) then
           raise (Error(Other"Document type differs", token_start ()))
     | _ ->
         raise (Error(Other"Document type missing", token_start ()))
@@ -112,8 +112,8 @@ class reader lexbuf ~name ~attrs ~closed =
     val start = token_start ()
     method name = name
     method attrs = attrs
-    method get_attr key : string = List.assoc (String.lowercase key) attrs
-    method has_attr key = List.mem_assoc (String.lowercase key) attrs
+    method get_attr key : string = List.assoc (String.lowercase_ascii key) attrs
+    method has_attr key = List.mem_assoc (String.lowercase_ascii key) attrs
 
     method finish =
       while not closed do ignore (self#next_child) done;
@@ -132,7 +132,7 @@ class reader lexbuf ~name ~attrs ~closed =
         match token lexbuf with
         | Tag (name, attrs, closed) ->
             let attrs =
-              List.map attrs ~f:(fun (k,v) -> String.lowercase k,v) in
+              List.map attrs ~f:(fun (k,v) -> String.lowercase_ascii k,v) in
             let closed = closed || name.[0] = '!' in
             let node = new reader lexbuf ~name ~attrs ~closed in
             current <- Some node;

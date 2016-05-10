@@ -1711,7 +1711,8 @@ val hash_with_default: (unit -> 'b) ->
 type 'a stack = 'a list
 val empty_stack : 'a stack
 (*val push : 'a -> 'a stack -> 'a stack*)
-val top : 'a stack -> 'a
+(* val top : 'a stack -> 'a *)
+val top_opt : 'a stack -> 'a option
 val pop : 'a stack -> 'a stack
 
 val top_option: 'a stack -> 'a option

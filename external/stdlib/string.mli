@@ -36,7 +36,7 @@ external set : string -> int -> char -> unit = "%string_safe_set"
    if [n] is outside the range 0 to [(String.length s - 1)]. *)
 
 external create : int -> string = "caml_create_string"
-(** [String.create n] returns a fresh string of length [n].
+(** [Bytes.create n] returns a fresh string of length [n].
    The string initially contains arbitrary characters.
    Raise [Invalid_argument] if [n < 0] or [n > Sys.max_string_length].
 *)

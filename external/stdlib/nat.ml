@@ -185,14 +185,14 @@ let gcd_nat nat1 off1 len1 nat2 off2 len2 =
       !real_len1
   end
 
-(* Racine carrée entière par la méthode de Newton (entière par défaut). *)
+(* Racine carré¦¥ entié‘½e par la mé¨hode de Newton (entié‘½e par dé¦­aut). *)
 
-(* Théorème: la suite xn+1 = (xn + a/xn) / 2 converge vers la racine *)
-(* carrée entière de a par défaut, si on part d'une valeur x0 *)
+(* Thé§®ré‘ªe: la suite xn+1 = (xn + a/xn) / 2 converge vers la racine *)
+(* carré¦¥ entié‘½e de a par dé¦­aut, si on part d'une valeur x0 *)
 (* strictement plus grande que la racine de a, sauf quand a est un *)
-(* carré - 1, cas auquel la suite alterne entre la racine par défaut *)
-(* et par excès. Dans tous les cas, le dernier terme de la partie *)
-(* strictement décroissante de la suite est le résultat cherché. *)
+(* carrï¿½ - 1, cas auquel la suite alterne entre la racine par dé¦­aut *)
+(* et par excé‘š. Dans tous les cas, le dernier terme de la partie *)
+(* strictement dé¦—roissante de la suite est le ré§¸ultat cherchï¿½. *)
 
 let sqrt_nat rad off len =
  let len = num_digits_nat rad off len in
@@ -207,17 +207,17 @@ let sqrt_nat rad off len =
    res in
  let cand_len = (len + 1) / 2 in  (* ceiling len / 2 *)
  let cand_rest = rad_len - cand_len in
- (* Racine carrée supposée cand = "|FFFF .... |" *)
+ (* Racine carré¦¥ supposé¦¥ cand = "|FFFF .... |" *)
  let cand = make_nat cand_len in
- (* Amélioration de la racine de départ:
+ (* Amé§˜ioration de la racine de dé§±art:
     on calcule nbb le nombre de bits significatifs du premier digit du candidat
-    (la moitié du nombre de bits significatifs dans les deux premiers
-     digits du radicande étendu à une longueur paire).
+    (la moitiï¿½ du nombre de bits significatifs dans les deux premiers
+     digits du radicande é¨endu ï¿½ une longueur paire).
     shift_cand est word_size - nbb *)
  let shift_cand =
    ((num_leading_zero_bits_in_digit rad (len-1)) +
      Sys.word_size * len_parity) / 2 in
- (* Tous les bits du radicande sont à 0, on rend 0. *)
+ (* Tous les bits du radicande sont ï¿½ 0, on rend 0. *)
  if shift_cand = Sys.word_size then cand else
  begin
   complement_nat cand 0 cand_len;
@@ -306,7 +306,7 @@ let raw_string_of_digit nat off =
 (******
 let sys_string_of_digit nat off =
     let s = raw_string_of_digit nat off in
-    let result = String.create (String.length s) in
+    let result = Bytes.create (String.length s) in
     String.blit s 0 result 0 (String.length s);
     s
 
@@ -538,7 +538,7 @@ let sys_nat_of_string base s off len =
      *)
       let c = String.get s i  in
         begin match c with
-          ' ' | '\t' | '\n' | '\r' | '\\' -> ()
+          ' ' | 'Â¥t' | 'Â¥n' | 'Â¥r' | 'Â¥Â¥' -> ()
         | _ -> int := !int * base + base_digit_of_char c base;
                incr digits_read
         end;

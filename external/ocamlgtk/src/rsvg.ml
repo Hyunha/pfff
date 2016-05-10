@@ -93,7 +93,7 @@ let render ?(gz=false) ?dpi ?size_cb input =
     | Rsvg_SubString (s, off, len) ->
 	write h s ~off ~len
     | Rsvg_Buffer (len, fill) ->
-	let buff = String.create len in
+	let buff = Bytes.create len in
 	let c = ref (fill buff) in
 	while !c > 0 do
 	  write h buff 0 !c ;

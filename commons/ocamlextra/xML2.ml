@@ -215,7 +215,7 @@ module Elt_Set =
 
 let elt_set_of_list names =
   List.fold_right
-    (fun n set -> Elt_Set.add (String.lowercase n) set) names Elt_Set.empty
+    (fun n set -> Elt_Set.add (String.lowercase_ascii n) set) names Elt_Set.empty
 
 type io_state =
     { preformatted : bool;
@@ -233,8 +233,8 @@ let initial_io_state ?(preformatted = []) ?(no_break = []) () =
 
 let update_io_state name attribs ios =
   { ios with
-    allow_break = not (Elt_Set.mem (String.lowercase name) ios.no_break_elts);
-    preformatted = Elt_Set.mem (String.lowercase name) ios.preformatted_elts }
+    allow_break = not (Elt_Set.mem (String.lowercase_ascii name) ios.no_break_elts);
+    preformatted = Elt_Set.mem (String.lowercase_ascii name) ios.preformatted_elts }
 
 (** {2 No Pretty Printing} *)
 

@@ -40,12 +40,12 @@ let output chan digest =
   output chan digest 0 16
 
 let input chan =
-  let digest = String.create 16 in
+  let digest = Bytes.create 16 in
   really_input chan digest 0 16;
   digest
 
 let to_hex d =
-  let result = String.create 32 in
+  let result = Bytes.create 32 in
   for i = 0 to 15 do
     String.blit (Printf.sprintf "%02x" (int_of_char d.[i])) 0 result (2*i) 2;
   done;
@@ -61,7 +61,7 @@ let from_hex s =
     | _ -> raise (Invalid_argument "Digest.from_hex")
   in
   let byte i = digit s.[i] lsl 4 + digit s.[i+1] in
-  let result = String.create 16 in
+  let result = Bytes.create 16 in
   for i = 0 to 15 do
     result.[i] <- Char.chr (byte (2 * i));
   done;

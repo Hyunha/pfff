@@ -15,7 +15,7 @@ open Gdk
 (* load image *)
 let load_image file =
   print_endline "Load as string";
-  let buf = String.create (256*256*3) in
+  let buf = Bytes.create (256*256*3) in
   let ic = open_in_bin file in
   really_input ic buf 0 (256*256*3);
   close_in ic;

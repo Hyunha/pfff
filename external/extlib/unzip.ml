@@ -169,14 +169,14 @@ let window_size = 1 lsl 15
 let buffer_size = 1 lsl 16
 
 let window_create size = {
-		wbuffer = String.create buffer_size;
+		wbuffer = Bytes.create buffer_size;
 		wpos = 0;
 		wcrc = adler32_create()
 	}
 
 let window_slide w = 
 	adler32_update w.wcrc w.wbuffer 0 window_size;
-	let b = String.create buffer_size in
+	let b = Bytes.create buffer_size in
 	w.wpos <- w.wpos - window_size;
 	String.unsafe_blit w.wbuffer window_size b 0 w.wpos;
 	w.wbuffer <- b
@@ -433,7 +433,7 @@ let inflate_init ?(header=true) ch =
 
 let inflate ?(header=true) ch =
 	let z = inflate_init ~header ch in
-	let s = String.create 1 in
+	let s = Bytes.create 1 in
 	IO.create_in
 		~read:(fun() ->
 			let l = inflate_data z s 0 1 in

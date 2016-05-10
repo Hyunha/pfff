@@ -112,11 +112,11 @@ let declaration ~hc ~cc = parser
 	Some '#', prefix ->
 	  prefix ^ String.uncapitalize tag ^ suffix
       |	Some '^', prefix ->
-	  prefix ^ String.uppercase tag ^ suffix
+	  prefix ^ String.uppercase_ascii tag ^ suffix
       |	_ ->
 	  prefix ^ tag ^ suffix
     and cname =
-      String.capitalize name
+      String.capitalize_ascii name
     in
     all_convs := (name, mlname, tags, flags) :: !all_convs;
     let tags =

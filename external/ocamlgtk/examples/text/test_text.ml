@@ -12,12 +12,12 @@ open StdLabels;;
 (* GtkMain.Main.init ();; *)
 
 class input_buffer n = object
-  val mutable s = String.create n
+  val mutable s = Bytes.create n
   val mutable pos = 0
   method clear = pos <- 0
   method input f =
     if String.length s < pos + n then begin
-      let s' = String.create (String.length s * 2) in
+      let s' = Bytes.create (String.length s * 2) in
       String.blit ~src:s ~dst:s' ~src_pos:0 ~dst_pos:0 ~len:pos;
       s <- s'
     end;

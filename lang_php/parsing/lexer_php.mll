@@ -65,7 +65,7 @@ let tok_add_s s ii  =
 let case_str s =
   if !Flag.case_sensitive
   then s
-  else String.lowercase s
+  else String.lowercase_ascii s
 
 
 let xhp_or_t_ident ii fii =
@@ -224,7 +224,7 @@ let keyword_table = Common.hash_of_list [
 ]
 
 let _ = assert ((Common2.hkeys keyword_table) +>
-                 List.for_all (fun s -> s = String.lowercase s))
+                 List.for_all (fun s -> s = String.lowercase_ascii s))
 
 (* ---------------------------------------------------------------------- *)
 (* Lexer State *)
@@ -311,9 +311,9 @@ let reset () =
   ()
 
 let rec current_mode () =
-  try
-    Common2.top !_mode_stack
-  with Failure("hd") ->
+  match Common2.top_opt !_mode_stack with
+  | Some hd -> hd
+  | None ->
     error("mode_stack is empty, defaulting to INITIAL");
     reset();
     current_mode ()
@@ -733,7 +733,7 @@ rule st_in_scripting = parse
           let s = tok lexbuf in
           match Common2.optionise (fun () ->
             (* PHP is case insensitive ... it's ok to write IF(...) { ... } *)
-            Hashtbl.find keyword_table (String.lowercase s))
+            Hashtbl.find keyword_table (String.lowercase_ascii s))
           with
           | Some f -> f info
           (* was called T_STRING in original grammar *)

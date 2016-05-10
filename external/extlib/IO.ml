@@ -62,7 +62,7 @@ let nread i n =
 	if n = 0 then
 		""
 	else
-	let s = String.create n in
+	let s = Bytes.create n in
 	let l = ref n in
 	let p = ref 0 in
 	try
@@ -116,7 +116,7 @@ let really_nread i n =
 	if n < 0 then invalid_arg "IO.really_nread";
 	if n = 0 then ""
 	else
-	let s = String.create n 
+	let s = Bytes.create n 
 	in
 	ignore(really_input i s 0 n);
 	s
@@ -173,7 +173,7 @@ let read_all i =
 		loop()
 	with
 		No_more_input ->
-			let buf = String.create !pos in
+			let buf = Bytes.create !pos in
 			List.iter (fun (s,p) ->
 				String.unsafe_blit s 0 buf p (String.length s)
 			) !str;
@@ -706,7 +706,7 @@ class out_chars ch =
   end
 
 let from_in_channel ch =
-	let cbuf = String.create 1 in
+	let cbuf = Bytes.create 1 in
 	let read() =
 		try
 			if ch#input cbuf 0 1 = 0 then raise Sys_blocked_io;
@@ -723,7 +723,7 @@ let from_in_channel ch =
 		~close:ch#close_in
 
 let from_out_channel ch =
-	let cbuf = String.create 1 in
+	let cbuf = Bytes.create 1 in
 	let write c =
 		String.unsafe_set cbuf 0 c;
 		if ch#output cbuf 0 1 = 0 then raise Sys_blocked_io;

@@ -18,7 +18,7 @@ let channel_redirector channel callback =
   Unix.dup2 cin channel ;
   let channel = Io.channel_of_descr cout in
   let len = 80 in
-  let buf = String.create len in
+  let buf = Bytes.create len in
   Io.add_watch channel ~prio:0 ~cond:[`IN; `HUP; `ERR] ~callback:
     begin fun cond -> 
       try if List.mem `IN cond then begin

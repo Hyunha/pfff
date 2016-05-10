@@ -111,7 +111,7 @@ let rec unargs args =
 let expr_is_T_or_F (expr : Ast.expr) =
   match expr with
   | Id(XName([QI(Name((str, _)))])) ->
-    let str_l = String.lowercase str in
+    let str_l = String.lowercase_ascii str in
     (str_l = "true") || (str_l = "false")
   | _ -> false
 

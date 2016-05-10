@@ -419,7 +419,7 @@ let mk_gui ~screen_size ~legend test_mode w =
                 | None -> []
                 | Some re ->
                     rects |> List.filter (fun r -> 
-                      let label = r.T.tr_label |> String.lowercase in
+                      let label = r.T.tr_label |> String.lowercase_ascii in
                       label ==~ re
                     )
               in

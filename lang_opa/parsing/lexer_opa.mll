@@ -172,9 +172,9 @@ let push_mode mode = Common.push mode _mode_stack
 let pop_mode () = ignore(Common2.pop2 _mode_stack)
 
 let rec current_mode () = 
-  try 
-    Common2.top !_mode_stack
-  with Failure("hd") -> 
+  match Common2.top_opt !_mode_stack with
+  | Some hd -> hd
+  | None ->
     error("LEXER: mode_stack is empty, defaulting to INITIAL");
     reset();
     current_mode ()

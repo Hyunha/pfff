@@ -263,7 +263,7 @@ val typing_sux_test : unit -> unit
  *   - List.fold*, List.concat, ... 
  *   - Str.global_replace
  *   - Filename.is_relative
- *   - String.uppercase, String.lowercase
+ *   - String.uppercase_ascii, String.lowercase_ascii
  * 
  * 
  * The Format library allows to hide passing an indent_level variable.

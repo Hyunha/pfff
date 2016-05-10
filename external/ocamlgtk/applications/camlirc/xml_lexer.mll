@@ -115,15 +115,15 @@ and entity = parse
   | identchar + ";"
       { let s = lexeme lexbuf in
       let s = String.sub s 0 (String.length s - 1) in
-        try List.assoc (String.lowercase s) entities
+        try List.assoc (String.lowercase_ascii s) entities
         with Not_found ->
-          "&" ^ String.lowercase s ^ ";" }
+          "&" ^ String.lowercase_ascii s ^ ";" }
   | _
       { raise (Error (Unterminated "entity", lexeme_start lexbuf)) }
 
 and tag_name = parse
   | ('!' ?) (identchar +)
-      { String.lowercase (lexeme lexbuf) }
+      { String.lowercase_ascii (lexeme lexbuf) }
   | _
       { raise (Error(Tag_expected, lexeme_start lexbuf)) }
 
@@ -147,7 +147,7 @@ and attributes = parse
       { let key = attribute lexbuf in
         let data = attribute_data lexbuf in
         let others, closed = attributes lexbuf in
-        (String.lowercase key, data) :: others, closed }
+        (String.lowercase_ascii key, data) :: others, closed }
 
 and attribute = parse
   | '"'

@@ -84,7 +84,7 @@ let graph_to_gefx ~str_of_node ~output ~tree ~weight_edges g =
                 let children = List.map aux xs in
                 Element ("node", [
                   "id", i_to_s (G.ivertex dir g);
-                  "label", String.uppercase (str_of_node dir) ^ "/";
+                  "label", String.uppercase_ascii (str_of_node dir) ^ "/";
                 ], [
 
                   Element ("nodes", [], children);

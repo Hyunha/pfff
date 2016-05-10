@@ -136,11 +136,13 @@ BASICLIBS=commons/lib.cma \
 
 BASICSYSLIBS=nums.cma bigarray.cma str.cma unix.cma
 
+# $(ZIPCMA)
 # use for the other programs
 LIBS= commons/lib.cma \
        $(JSONCMA) \
        $(GRAPHCMA) \
-       $(EXTLIBCMA) $(PTCMA) $(ZIPCMA) $(JAVALIBCMA) \
+       $(EXTLIBCMA) $(PTCMA) \
+       $(JAVALIBCMA) \
        commons/commons_features.cma \
     globals/lib.cma \
     h_files-format/lib.cma \
@@ -198,12 +200,13 @@ LIBS= commons/lib.cma \
     lang_web/parsing/lib.cma \
     mini/lib.cma
 
+#  $(ZIPDIR) 
 MAKESUBDIRS=commons \
   commons/graph \
   $(JSONDIR) \
   $(GRAPHDIR) \
   $(GUIDIR) $(CAIRODIR) \
-  $(ZIPDIR) $(EXTLIBDIR) $(PTDIR) $(JAVALIBDIR) \
+  $(EXTLIBDIR) $(PTDIR) $(JAVALIBDIR) \
   globals \
   h_version-control \
   h_visualization \

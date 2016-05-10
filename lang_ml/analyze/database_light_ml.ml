@@ -323,7 +323,7 @@ let compute_database ?(verbose=false) files_or_dirs =
               in
               let module_entity = 
                 let (_d,b,_e) = Common2.dbe_of_filename file_entity in
-                String.capitalize b
+                String.capitalize_ascii b
               in
               
               if file_entity <> file && final_module_name = module_entity

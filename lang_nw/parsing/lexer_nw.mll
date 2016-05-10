@@ -135,9 +135,9 @@ let reset () =
   ()
 
 let rec current_mode () = 
-  try 
-    Common2.top !_mode_stack
-  with Failure("hd") -> 
+  match Common2.top_opt !_mode_stack with
+  | Some hd -> hd
+  | None ->
     pr2("LEXER: mode_stack is empty, defaulting to INITIAL");
     reset();
     current_mode ()

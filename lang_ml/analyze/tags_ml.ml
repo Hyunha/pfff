@@ -94,7 +94,7 @@ let defs_of_files_or_dirs ?(verbose=false) xs =
               Common.push (Tags.tag_of_info filelines info kind) defs;
 
               let (d,b,e) = Common2.dbe_of_filename file in
-              let module_name = String.capitalize b in
+              let module_name = String.capitalize_ascii b in
 
               let info' = Parse_info.rewrap_str (module_name ^ "." ^ s) info in
 

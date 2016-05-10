@@ -48,14 +48,14 @@ module Charset =
       let s = make_empty () in add_range s c1 c2; s
     *)
     let complement s =
-      let r = String.create 32 in
+      let r = Bytes.create 32 in
       for i = 0 to 31 do
         r.[i] <- Char.chr(Char.code s.[i] lxor 0xFF)
       done;
       r
 
     let union s1 s2 =
-      let r = String.create 32 in
+      let r = Bytes.create 32 in
       for i = 0 to 31 do
         r.[i] <- Char.chr(Char.code s1.[i] lor Char.code s2.[i])
       done;
@@ -208,7 +208,7 @@ let charclass_of_regexp fold_case re =
 (* The case fold table: maps characters to their lowercase equivalent *)
 
 let fold_case_table =
-  let t = String.create 256 in
+  let t = Bytes.create 256 in
   for i = 0 to 255 do t.[i] <- Char.lowercase(Char.chr i) done;
   t
 
@@ -286,7 +286,7 @@ let compile fold_case re =
           emit_code (String (string_after s (i+1)))
         with Not_found ->
           if fold_case then
-            emit_instr op_STRINGNORM (cpool_index (String.lowercase s))
+            emit_instr op_STRINGNORM (cpool_index (String.lowercase_ascii s))
           else
             emit_instr op_STRING (cpool_index s)
       end
@@ -554,7 +554,7 @@ let regexp_case_fold e = compile true (parse e)
 
 let quote s =
   let len = String.length s in
-  let buf = String.create (2 * len) in
+  let buf = Bytes.create (2 * len) in
   let pos = ref 0 in
   for i = 0 to len - 1 do
     match s.[i] with

@@ -216,7 +216,7 @@ EXTEND
 		 ExAcc(l, ExUid (l,file), ExLid(l, "string_of_" ^ s)) 
 		but dont work that much cos builtin lib or modules have not those function
 	      *)
-		ExLid(l, String.lowercase file ^ "_" ^ "string_of_" ^ s)
+		ExLid(l, String.lowercase_ascii file ^ "_" ^ "string_of_" ^ s)
 	    | _ -> failwith "pb"
 	  in
 	  (* TODOSTYLE? function fmatch id patt expr who put the None, ... *)

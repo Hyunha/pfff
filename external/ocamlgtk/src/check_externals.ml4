@@ -15,7 +15,7 @@ type token =
   | EOF
 
 let rec implode l =
-  let s = String.create (List.length l) in
+  let s = Bytes.create (List.length l) in
   let i = ref 0 in
   List.iter l ~f:(fun c -> s.[!i] <- c; incr i);
   s

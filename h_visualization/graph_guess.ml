@@ -46,7 +46,7 @@ let to_gdf g ~str_of_node ~output =
       
       match e with
       | "ml" -> 
-          let str = String.capitalize b in
+          let str = String.capitalize_ascii b in
           if str = "Math" then "Math_xxx"
           else str
       | "mli" -> b ^ "." ^ e

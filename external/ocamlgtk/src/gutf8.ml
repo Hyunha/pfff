@@ -66,13 +66,13 @@ let write_unichar s ~pos (c : unichar) =
   pos := p + len
 
 let from_unichar (n : unichar) =
-  let s = String.create 6 and pos = ref 0 in
+  let s = Bytes.create 6 and pos = ref 0 in
   write_unichar s ~pos n;
   String.sub s 0 !pos
 
 let from_unistring (s : unistring) =
   let len = Array.length s in
-  let r = String.create (len*6) in
+  let r = Bytes.create (len*6) in
   let pos = ref 0 in
   for i = 0 to len-1 do write_unichar r ~pos s.(i) done;
   String.sub r 0 !pos

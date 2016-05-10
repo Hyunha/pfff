@@ -17,5 +17,5 @@
 
 let module_name_of_filename file = 
   let (_d,b,_e) = Common2.dbe_of_filename file in
-  let module_name = String.capitalize b in
+  let module_name = String.capitalize_ascii b in
   module_name

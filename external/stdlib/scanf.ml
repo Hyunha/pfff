@@ -320,7 +320,7 @@ module Scanning : SCANNING = struct
 
   let from_ic scan_close_ic iname ic =
     let len = !file_buffer_size in
-    let buf = String.create len in
+    let buf = Bytes.create len in
     let i = ref 0 in
     let lim = ref 0 in
     let eof = ref false in

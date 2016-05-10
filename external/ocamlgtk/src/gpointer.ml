@@ -141,7 +141,7 @@ let region_of_string =
   unsafe_create_region ~path:[||] ~get_length:String.length
 
 let string_of_region reg =
-  let s = String.create reg.length in
+  let s = Bytes.create reg.length in
   let reg' = region_of_string s in
   unsafe_blit reg reg';
   s

@@ -112,7 +112,7 @@ let lex_refill read_fun aux_buffer lexbuf =
         min (2 * String.length lexbuf.lex_buffer) Sys.max_string_length in
       if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n > newlen
       then failwith "Lexing.lex_refill: cannot grow buffer";
-      let newbuf = String.create newlen in
+      let newbuf = Bytes.create newlen in
       (* Copy the valid data to the beginning of the new buffer *)
       String.blit lexbuf.lex_buffer lexbuf.lex_start_pos
                   newbuf 0
@@ -148,8 +148,8 @@ let zero_pos = {
 };;
 
 let from_function f =
-  { refill_buff = lex_refill f (String.create 512);
-    lex_buffer = String.create 1024;
+  { refill_buff = lex_refill f (Bytes.create 512);
+    lex_buffer = Bytes.create 1024;
     lex_buffer_len = 0;
     lex_abs_pos = 0;
     lex_start_pos = 0;
@@ -182,20 +182,20 @@ let from_string s =
 
 let lexeme lexbuf =
   let len = lexbuf.lex_curr_pos - lexbuf.lex_start_pos in
-  let s = String.create len in
+  let s = Bytes.create len in
   String.unsafe_blit lexbuf.lex_buffer lexbuf.lex_start_pos s 0 len;
   s
 
 let sub_lexeme lexbuf i1 i2 =
   let len = i2-i1 in
-  let s = String.create len in
+  let s = Bytes.create len in
   String.unsafe_blit lexbuf.lex_buffer i1 s 0 len;
   s
 
 let sub_lexeme_opt lexbuf i1 i2 =
   if i1 >= 0 then begin
     let len = i2-i1 in
-    let s = String.create len in
+    let s = Bytes.create len in
     String.unsafe_blit lexbuf.lex_buffer i1 s 0 len;
     Some s
   end else begin
