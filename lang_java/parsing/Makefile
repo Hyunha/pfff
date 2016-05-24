@@ -71,9 +71,12 @@ visitor_java.cmo: visitor_java.ml
 LIBNAME=pfff-lang_java
 EXPORTSRC=meta_ast_java.mli \
    parser_java.mli parse_java.mli \
-   lib_parsing_java.mli visitor_java.mli \
+   lib_parsing_java.mli visitor_java.mli
+EXPORTSRC2=ast_java.ml lexer_java.ml \
+   token_helpers_java.ml flag_parsing_java.ml
 
 install-findlib:
 	ocamlfind install $(LIBNAME) META   lib.cma lib.cmxa lib.a \
           $(EXPORTSRC) $(EXPORTSRC:%.mli=%.cmi) \
-          ast_java.ml ast_java.cmi
+          $(EXPORTSRC2) $(EXPORTSRC2:%.ml=%.cmi)
+
